@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import "./styles.css";
 import models from "../../modelData/models";
@@ -10,19 +10,20 @@ import models from "../../modelData/models";
  */
 function TopBar() {
   const location = useLocation();
-  const params = useParams();
 
   const getContextText = () => {
-    if (!params.userId) return null;
+    const pathParts = location.pathname.split("/");
+    if (pathParts.length < 3) return null;
 
-    const user = models.userModel(params.userId);
+    const userId = pathParts[2];
+    const user = models.userModel(userId);
     if (!user) return null;
 
     const fullName = `${user.first_name} ${user.last_name}`;
-    
-    if (location.pathname.includes('/photos/')) {
+
+    if (location.pathname.includes("/photos/")) {
       return `Photos of ${fullName}`;
-    } else if (location.pathname.includes('/users/')) {
+    } else if (location.pathname.includes("/users/")) {
       return fullName;
     }
     return null;
@@ -34,7 +35,7 @@ function TopBar() {
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar className="toolbar">
         <Typography variant="h6" color="inherit" className="author-name">
-          by Phi Son
+          By B22DCAT249 - Phi Quoc Tu Son
         </Typography>
         {contextText && (
           <Typography variant="h6" color="inherit" className="context-text">

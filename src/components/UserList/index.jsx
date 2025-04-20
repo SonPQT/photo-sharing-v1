@@ -19,7 +19,13 @@ function UserList() {
 
   return (
     <div>
-      <Typography variant="h5" className="user-list-title">
+      <Typography
+        variant="h5"
+        className="user-list-title"
+        component={Link}
+        to="/users"
+        style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+      >
         Users
       </Typography>
       <List component="nav">
@@ -31,9 +37,7 @@ function UserList() {
               to={`/users/${user._id}`}
               className="user-list-item"
             >
-              <ListItemText
-                primary={`${user.first_name} ${user.last_name}`}
-              />
+              <ListItemText primary={`${user.first_name} ${user.last_name}`} />
             </ListItem>
             <Divider />
           </React.Fragment>
